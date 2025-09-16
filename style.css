@@ -72,14 +72,20 @@ body {
   }
   
   /* ===== Header ===== */
+
   .header-title {
-    font-family: 'Great Vibes', cursive;
-    font-size: 2.5rem;
-    color: #e7b666;
+    font-family: "Agbalumo",cursive;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 3rem;
+    color: #f08d80;
     margin-bottom: 0.5rem;
   }
   
   .subtitle {
+    font-family:'Neuton';
+    font-weight: 700;
+    font-style: normal;
     font-size: 1rem;
     margin-bottom: 2rem;
     color: #f2f2f2;
@@ -104,7 +110,8 @@ body {
   .btn-konfirmasi {
     background-color: #be5740;
     color: #fff;
-    font-size: 1.1rem;
+    width: 101%;
+    font-size: 1rem;
     padding: 0.8rem 1.2rem;
     border-radius: 10px;
     border: none;
@@ -125,29 +132,33 @@ body {
   
   /* ===== Konfirmasi Page ===== */
   .confirm-box {
+    width: 80%;
     background: rgba(190, 87, 64, 0.9);
     border: 3px solid #e7b666;
   }
   
   .nama {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     font-weight: bold;
     margin: 1rem 0;
   }
   
   .kursi {
-    font-size: 2rem;
+    font-size: 4rem;
     font-weight: 700;
     color: #fff;
     margin: 1rem 0;
   }
   
   .ucapan {
-    font-size: 1rem;
-    margin-top: 1rem;
+    font-size: 2rem;
+    margin-top: 2rem;
     color: #f8e0d8;
   }
-
+  
+  /* =========================
+   RESPONSIVE DESIGN
+   ========================= */
    @media (max-width: 768px) {
     body {
       background-size: cover;
@@ -155,24 +166,29 @@ body {
     }
   
     .container {
-      max-width: 80%;
+      max-width: 70%;
       padding: 12px;
     }
   
     input[type="text"], button {
-      width: 90%;
+      width: 95%;
       font-size: 1rem;
+      padding: 12px;
+    }
+
+    .btn-konfirmasi {
+      max-width: 110%;
       padding: 10px;
     }
   
     .card {
-      max-width: 80%;
-      font-size: 0.85rem;
-      padding: 12px;
+      max-width: 90%;
+      font-size: 0.95rem;
+      padding: 15px;
     }
   
     h1 {
-      font-size: 1.5rem;
+      font-size: 2.5rem;
       text-align: center;
     }
   
@@ -184,16 +200,15 @@ body {
   
   @media (max-width: 400px) {
     h1 {
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
   
     input[type="text"], button {
-      font-size: 0.8rem;
-      padding: 12px;
+      font-size: 1rem;
+      padding: 8px;
     }
   
     .card {
-      font-size: 0.8rem;
+      font-size: 1rem;
     }
   }
-
