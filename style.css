@@ -1,0 +1,150 @@
+/* ===== General Setup ===== */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(
+        to bottom,
+        #23606c 0%,
+        #23606c 30%,
+        #e7b666 100%
+ );
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .checkerboard {
+    position: absolute;
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    background-image: repeating-linear-gradient(
+      45deg,
+      #f8e0d8 10px, #f8e0d8 20px,
+      #000 20px, #000 40px
+    );
+    opacity: 0.1;
+    z-index: 1;
+  }
+  
+  /* ====== Side checkerboard stripes ====== */
+:root {
+    --checker-a: #000000;  /* putih */
+    --checker-b: #e5a69e;  /* pink krem */
+    --checker-size: 27px;
+    --stripe-width: 40px;
+  }
+  
+  body::before,
+  body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: var(--stripe-width);
+    z-index: 1;
+    pointer-events: none;
+    background:
+      conic-gradient(
+        from 90deg,
+        var(--checker-a) 0 90deg,
+        var(--checker-b) 0 180deg,
+        var(--checker-a) 0 270deg,
+        var(--checker-b) 0 360deg
+      );
+    background-size: var(--checker-size) var(--checker-size);
+    box-shadow: 0 0 0 1px rgba(0,0,0,.06) inset;
+  }
+  
+  body::before { left: 0; }
+  body::after  { right: 0; }
+  
+  .container {
+    position: relative;
+    z-index: 2; /* supaya di atas checkerboard */
+    background: rgba(0,0,0,0.3);
+    padding: 20px;
+    border-radius: 12px;
+  }
+  
+  /* ===== Header ===== */
+  .header-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem;
+    color: #e7b666;
+    margin-bottom: 0.5rem;
+  }
+  
+  .subtitle {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    color: #f2f2f2;
+  }
+  
+  /* ===== Form ===== */
+  form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+  
+  form input {
+    width: 95%;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+  }
+  
+  .btn-konfirmasi {
+    background-color: #be5740;
+    color: #fff;
+    font-size: 1.1rem;
+    padding: 0.8rem 1.2rem;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .btn-konfirmasi:hover {
+    background-color: #e7b666;
+    color: #23606c;
+  }
+  
+  .error {
+    margin-top: 1rem;
+    color: #ffcccc;
+    font-size: 0.9rem;
+  }
+  
+  /* ===== Konfirmasi Page ===== */
+  .confirm-box {
+    background: rgba(190, 87, 64, 0.9);
+    border: 3px solid #e7b666;
+  }
+  
+  .nama {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 1rem 0;
+  }
+  
+  .kursi {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 1rem 0;
+  }
+  
+  .ucapan {
+    font-size: 1rem;
+    margin-top: 1rem;
+    color: #f8e0d8;
+  }
+  

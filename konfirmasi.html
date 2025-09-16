@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Konfirmasi Kehadiran</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="konfirmasi">
+    <div class="checkerboard"></div>
+  <div class="container confirm-box">
+    <h1 class="header-title">Terimakasih!</h1>
+    <p id="namaKaryawan" class="nama"></p>
+    <p id="nomorKursi" class="kursi"></p>
+    <p class="ucapan">Happy BRC 31st Anniversary, silakan duduk sesuai nomor kursi Anda.</p>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById("namaKaryawan").textContent = params.get("nama");
+    document.getElementById("nomorKursi").textContent = "Nomor Kursi: " + params.get("kursi");
+  </script>
+</body>
+</html>
