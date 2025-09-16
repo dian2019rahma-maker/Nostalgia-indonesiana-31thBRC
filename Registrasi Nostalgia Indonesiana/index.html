@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Registrasi Kehadiran - Nostalgia Indonesiana</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body class="home">
+  <div class="checkerboard"></div>
+  <div class="container">
+    <header>
+      <h1 class="header-title">Nostalgia Indonesiana</h1>
+      <p class="subtitle">Perayaan 31 Tahun Kebersamaan</p>
+    </header>
+
+    <main>
+      <form id="regForm">
+        <label for="employeeId">Masukkan Nomor Karyawan</label>
+        <input type="text" id="employeeId" name="employeeId" required>
+        <button type="submit" class="btn-konfirmasi">Konfirmasi Kehadiran</button>
+      </form>
+      <p id="errorMsg" class="error"></p>
+    </main>
+  </div>
+  <!-- ================== SCRIPT AREA ================== -->
+  <!-- 1. Tambahin PapaParse dulu -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+
+  <!-- 2. Script custom kamu -->
+  <script>
+    let database = []; // nanti diisi dari Google Sheets
+
+    // ambil data dari Google Sheets (publish to CSV link)
+    Papa.parse("https://docs.google.com/spreadsheets/d/e/2PACX-1vSTGrrYmTg962xSYq5dwRhEq__8jwiakGj6vtOSgcdY1S-_wQ57bS7BB_ir5EelQlwKR--jpBGH3K4y/pub?output=csv", {
+      download: true,
+      header: true,
+      skipEmptyLines: true,
+      complete: function(results) {
+        console.log("Raw results:", results);
+        database = results.data.filter(row => row.NamaKaryawan);
+        console.log("Database parsed:", database); // cek di console
+      }
+    });
+
+    // Event form submit
+    document.getElementById("regForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const id = document.getElementById("employeeId").value.trim();
+
+      // Cari di database
+      const found = database.find(row => row.NomorKaryawan === id);
+      
+      if (found) {
+        const params = new URLSearchParams({
+          nama: found.NamaKaryawan,
+          kursi: found.NomorKursi
+        });
+        window.location.href = "konfirmasi.html?" + params.toString();
+      } else {
+        document.getElementById("errorMsg").textContent = "Nomor karyawan tidak ditemukan. Silakan cek kembali.";
+      }
+    });
+
+
+  </script>
+</body>
+</html>
