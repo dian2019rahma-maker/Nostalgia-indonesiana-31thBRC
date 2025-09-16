@@ -148,38 +148,57 @@ body {
     color: #f8e0d8;
   }
 
-@media (max-width: 768px) {
-  body {
-    font-size: 14px;
+   @media (max-width: 768px) {
+    body {
+      background-size: cover;
+      background-attachment: fixed;
+    }
+  
+    .container {
+      max-width: 90%;
+      padding: 15px;
+    }
+  
+    input[type="text"], button {
+      width: 100%;
+      font-size: 1rem;
+      padding: 12px;
+    }
+  
+    .card {
+      max-width: 90%;
+      font-size: 0.95rem;
+      padding: 15px;
+    }
+  
+    h1 {
+      font-size: 1.8rem;
+      text-align: center;
+    }
+  
+    p {
+      font-size: 1rem;
+      text-align: center;
+    }
   }
-
-  h1 {
-    font-size: 1.6rem;
-    text-align: center;
-  }
-
-  .container {
-    padding: 1rem;
-  }
-
-  .hero-section {
-    height: auto;
-    padding: 2rem 1rem;
-    background-size: cover;
-  }
-
-  .btn {
-    font-size: 1rem;
-    padding: 0.7rem 1.2rem;
-  }
-}
-
-@media (max-width: 480px) {
-  h1 {
-    font-size: 1.2rem;
+  
+  @media (max-width: 400px) {
+    h1 {
+      font-size: 1.4rem;
+    }
+  
+    input[type="text"], button {
+      font-size: 0.9rem;
+      padding: 10px;
+    }
+  
+    .card {
+      font-size: 0.85rem;
+    }
   }
 
   .btn {
     width: 100%;
   }
 }
+
