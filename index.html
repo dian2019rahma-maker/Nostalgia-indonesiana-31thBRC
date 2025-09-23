@@ -48,14 +48,14 @@
         .then(res => res.json())
         .then(data => {
           if (data.status === "success") {
-            document.getElementById("result").textContent = 
-              "✅ Absen berhasil, nomor kursi: " + data.kursi;
+            document.getElementById("loginForm").textContent = 
+               window.location.href = `konfirmasi.html?noKaryawan=${noKaryawan}&kursi=${result.kursi}`;
           } else {
-            document.getElementById("result").textContent = "❌ Nomor karyawan tidak ditemukan";
+            document.getElementById("loginForm").textContent = "❌ Nomor karyawan tidak ditemukan";
           }
         })
         .catch(err => {
-          document.getElementById("result").textContent = "⚠️ Terjadi error: " + err;
+          document.getElementById("loginForm").textContent = "⚠️ Terjadi error: " + err;
         });
     });
   </script>
