@@ -34,37 +34,30 @@
     </main>
   </div>
   <!-- ================== SCRIPT AREA ================== -->
-  <script>
-    async function handleSubmit(event) {
-      event.preventDefault();
+
+   <script>
+    const scriptURL = "https://script.google.com/macros/s/AKfycbxFAYkckSEzP8nXcCRXo8B64OnQLDvFjk5bbecRfZekki33z4pLNmpvb9iGoI_lSrM/exec";
+
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
       const noKaryawan = document.getElementById("noKaryawan").value;
-      try {
-        const response = await fetch("https://script.google.com/macros/s/AKfycbxFAYkckSEzP8nXcCRXo8B64OnQLDvFjk5bbecRfZekki33z4pLNmpvb9iGoI_lSrM/execnoKaryawan=" + encodeURIComponent(noKaryawan);
-       
+      const url = scriptURL + "?noKaryawan=" + encodeURIComponent(noKaryawan);
+
       fetch(url)
-      .then(res => res.json())
-      .then(data => console.log(data))
-      .catch(err => console.error(err)); {
-          method: "POST",
-          body: JSON.stringify({ noKaryawan: noKaryawan }),
-          headers: { "Content-Type": "application/json" }
+        .then(res => res.json())
+        .then(data => {
+          if (data.status === "success") {
+            document.getElementById("result").textContent = 
+              "✅ Absen berhasil, nomor kursi: " + data.kursi;
+          } else {
+            document.getElementById("result").textContent = "❌ Nomor karyawan tidak ditemukan";
+          }
+        })
+        .catch(err => {
+          document.getElementById("result").textContent = "⚠️ Terjadi error: " + err;
         });
-  
-        const result = await response.json();
-  
-        if (result.status === "success") {
-          // Redirect ke konfirmasi.html dengan query string
-          window.location.href = `konfirmasi.html?NomorKaryawan=${noKaryawan}&NomorKursi=${result.kursi}`;
-        } else {
-          alert("❌ Nomor Karyawan tidak ditemukan. Silakan cek lagi.");
-        }
-      } catch (error) {
-        console.error("Error:", error);
-        alert("⚠️ Terjadi kesalahan koneksi. Coba lagi.");
-      }
-    }
-  
-    document.getElementById("loginForm").addEventListener("submit", handleSubmit);
+    });
   </script>
   
   <script>
