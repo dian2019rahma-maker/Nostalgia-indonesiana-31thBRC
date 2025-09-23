@@ -13,14 +13,13 @@
     <h1 class="header-title">Terimakasih!</h1>
     <p id="namaKaryawan" class="nama"></p>
     <p id="nomorKursi" class="kursi"></p>
-    <p class="ucapan">Silahkan duduk dan selamat menikmati acara Nostalgia Indonesiana :).</p>
+    <p class="ucapan">Happy BRC 31st Anniversary, silakan duduk sesuai nomor kursi Anda.</p>
   </div>
 
   <script>
-    const params = new URLSearchParams(window.location.search);
-    document.getElementById("namaKaryawan").textContent = params.get("nama");
-    document.getElementById("nomorKursi").textContent = "Nomor Meja: " + params.get("kursi");
+    const urlParams = new URLSearchParams(window.location.search);
+    document.getElementById("namaKaryawan").textContent = urlParams.get("noKaryawan");
+    document.getElementById("kursi").textContent = urlParams.get("kursi");
   </script>
 </body>
 </html>
-
