@@ -18,9 +18,17 @@
 
   <script>
     const urlParams = new URLSearchParams(window.location.search);
-    document.getElementById("namaKaryawan").textContent = urlParams.get("noKaryawan");
-    document.getElementById("nomorKursi").textContent = urlParams.get("kursi");
-  </script>
+    const noKaryawan = urlParams.get("noKaryawan");
+    const kursi = urlParams.get("kursi");
+    
+    if (noKaryawan && kursi) {
+    document.getElementById("NamaKaryawan").textContent = noKaryawan;
+    document.getElementById("NomorKursi").textContent = kursi;
+  } else {
+    document.body.innerHTML = "<h2>⚠️ Data tidak ditemukan</h2>";
+  }
+</script>
 </body>
 </html>
+
 
