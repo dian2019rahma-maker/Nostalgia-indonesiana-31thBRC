@@ -6,66 +6,83 @@
   <title>Registrasi Kehadiran - Nostalgia Indonesiana</title>
   <link rel="stylesheet" href="style.css">
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Rye&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Agbalumo&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Neuton:wght@700&display=swap" rel="stylesheet">
 </head>
+
 <body class="home">
   <div class="checkerboard"></div>
   <div class="container">
     <header>
       <h1 class="header-title">Nostalgia Indonesiana</h1>
-      <p class="subtitle">Welcome to BRC 31st Anniversary & Staff Gathering 2025</p>
+      <p class="subtitle">Happy BRC 31st Anniversary</p>
     </header>
 
+    <section class="countdown">
+      <h2>⏳ Menuju Acara</h2>
+      <div id="timer">Loading...</div>
+    </section>
+
     <main>
-      <form id="regForm">
-        <label for="employeeId">Masukkan Nomor Karyawan</label>
-        <input type="text" id="employeeId" name="employeeId" required>
+      <form id="loginForm">
+        <label for="noKaryawan">Masukkan Nomor Karyawan</label>
+        <input type="text" id="noKaryawan" name="noKaryawan" required>
         <button type="submit" class="btn-konfirmasi">Konfirmasi Kehadiran</button>
       </form>
       <p id="errorMsg" class="error"></p>
     </main>
   </div>
   <!-- ================== SCRIPT AREA ================== -->
-  <!-- 1. Tambahin PapaParse dulu -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
-
-  <!-- 2. Script custom kamu -->
   <script>
-    let database = []; // nanti diisi dari Google Sheets
-
-    // ambil data dari Google Sheets (publish to CSV link)
-    Papa.parse("https://docs.google.com/spreadsheets/d/e/2PACX-1vSTGrrYmTg962xSYq5dwRhEq__8jwiakGj6vtOSgcdY1S-_wQ57bS7BB_ir5EelQlwKR--jpBGH3K4y/pub?output=csv", {
-      download: true,
-      header: true,
-      skipEmptyLines: true,
-      complete: function(results) {
-        console.log("Raw results:", results);
-        database = results.data.filter(row => row.NamaKaryawan);
-        console.log("Database parsed:", database); // cek di console
-      }
-    });
-
-    // Event form submit
-    document.getElementById("regForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const id = document.getElementById("employeeId").value.trim();
-
-      // Cari di database
-      const found = database.find(row => row.NomorKaryawan === id);
-      
-      if (found) {
-        const params = new URLSearchParams({
-          nama: found.NamaKaryawan,
-          kursi: found.NomorKursi
+    async function handleSubmit(event) {
+      event.preventDefault();
+      const noKaryawan = document.getElementById("noKaryawan").value;
+  
+      try {
+        const response = await fetch("https://script.google.com/macros/s/AKfycbxFAYkckSEzP8nXcCRXo8B64OnQLDvFjk5bbecRfZekki33z4pLNmpvb9iGoI_lSrM/exec", {
+          method: "POST",
+          body: JSON.stringify({ noKaryawan: noKaryawan }),
+          headers: { "Content-Type": "application/json" }
         });
-        window.location.href = "konfirmasi.html?" + params.toString();
-      } else {
-        document.getElementById("errorMsg").textContent = "Nomor karyawan tidak ditemukan. Silakan cek kembali.";
+  
+        const result = await response.json();
+  
+        if (result.status === "success") {
+          // Redirect ke konfirmasi.html dengan query string
+          window.location.href = `konfirmasi.html?NomorKaryawan=${noKaryawan}&NomorKursi=${result.kursi}`;
+        } else {
+          alert("❌ Nomor Karyawan tidak ditemukan. Silakan cek lagi.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("⚠️ Terjadi kesalahan koneksi. Coba lagi.");
       }
-    });
+    }
+  
+    document.getElementById("loginForm").addEventListener("submit", handleSubmit);
+  </script>
+  
+  <script>
+    const eventDate = new Date("September 25, 2025 17:00:00").getTime();
+    const timer = document.getElementById("timer");
 
+    setInterval(function() {
+      const now = new Date().getTime();
+      const distance = eventDate - now;
+
+      if (distance < 0) {
+        timer.innerHTML = "🎉 Acara Sedang Berlangsung 🎉";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      timer.innerHTML = `${days} Hari ${hours} Jam ${minutes} Menit ${seconds} Detik`;
+    }, 1000);
 
   </script>
 </body>
