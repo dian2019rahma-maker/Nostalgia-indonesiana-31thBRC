@@ -2,13 +2,23 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Konfirmasi Kehadiran</title>
   <link rel="stylesheet" href="style.css">
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body class="konfirmasi">
-    <div class="checkerboard"></div>
+  <img src="assets/Orange.png" alt="floral" class="floral bottom-one">
+  <img src="assets/Pink.png" alt="floral" class="floral bottom-two">
+  <img src="assets/Mawar.png" alt="floral" class="floral bottom-three">
+  <img src="assets/Orange.png" alt="floral" class="floral bottom-four">
+  <img src="assets/Pink.png" alt="floral" class="floral bottom-five">
+  <img src="assets/Mawar.png" alt="floral" class="floral bottom-six">
+
+  <div class="checkerboard-left"></div>
+  <div class="checkerboard-right"></div>
+
   <div class="container confirm-box">
     <h1 class="header-title">Terimakasih!</h1>
     <p id="namaKaryawan" class="nama"></p>
@@ -16,19 +26,40 @@
     <p class="ucapan">Happy BRC 31st Anniversary, silakan duduk sesuai nomor kursi Anda.</p>
   </div>
 
+  <audio id="bg-music" autoplay loop muted hidden>
+    <source src="assets/Lucky Draw BRC Jingle.mp3" type="audio/mp3">
+  </audio>
+  
+  <!-- Tombol kontrol -->
+<div id="music-toggle">🔇</div>
+
+<script>
+  const bgMusic = document.getElementById("bg-music");
+  const toggleBtn = document.getElementById("music-toggle");
+
+  // klik pertama di halaman → unmute musik
+  document.addEventListener("click", () => {
+    bgMusic.muted = false;
+    toggleBtn.textContent = "🔊";
+  }, { once: true });
+
+  // toggle manual mute/unmute
+  toggleBtn.addEventListener("click", (e) => {
+    e.stopPropagation(); // biar gak bentrok sama event global
+    if (bgMusic.muted) {
+      bgMusic.muted = false;
+      toggleBtn.textContent = "🔊";
+    } else {
+      bgMusic.muted = true;
+      toggleBtn.textContent = "🔇";
+    }
+  });
+  </script>
+
   <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const noKaryawan = urlParams.get("noKaryawan");
-    const kursi = urlParams.get("kursi");
-    
-    if (noKaryawan && kursi) {
-    document.getElementById("NamaKaryawan").textContent = noKaryawan;
-    document.getElementById("NomorKursi").textContent = kursi;
-  } else {
-    document.body.innerHTML = "<h2>⚠️ Data tidak ditemukan</h2>";
-  }
-</script>
+    const params = new URLSearchParams(window.location.search);
+    document.getElementById("namaKaryawan").textContent = params.get("nama");
+    document.getElementById("nomorKursi").textContent = "Nomor Kursi: " + params.get("kursi");
+  </script>
 </body>
 </html>
-
-
