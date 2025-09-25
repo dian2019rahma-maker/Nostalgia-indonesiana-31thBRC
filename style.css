@@ -1,6 +1,10 @@
 /* ===== General Setup ===== */
-body {
+html, body {
     margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
     font-family: 'Poppins', sans-serif;
     min-height: 100vh;
     display: flex;
@@ -318,3 +322,4 @@ body {
       font-size: 1rem;
     }
   }
+
